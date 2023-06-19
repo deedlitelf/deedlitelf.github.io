@@ -1122,11 +1122,11 @@
 
       // for openai and webgpu/webnn models (i.e. you don't need to setup your own inference server, and most people already have an openai account):
       let broadlyAvailableModels = [
-        {name:"gpt-3.5-turbo", shortLabel:"gpt-3.5-turbo - good/fast/cheap", endpointUrl:"https://api.openai.com/v1/chat/completions", modelUrl:null, apiKey:"<OPENAI>", maxSequenceLength:4096, type:"chat-completion", tokenPricing:{prompt: 0.0015, completion: 0.002}},
-        {name:"gpt-3.5-turbo-16k", shortLabel:"gpt-3.5-turbo-16k - 4x longer memory/context", endpointUrl:"https://api.openai.com/v1/chat/completions", modelUrl:null, apiKey:"<OPENAI>", maxSequenceLength:16384, type:"chat-completion", tokenPricing:{prompt: 0.003, completion: 0.004}},
-        {name:"text-davinci-003", shortLabel:"text-davinci-003 - good/expensive", endpointUrl:"https://api.openai.com/v1/completions", modelUrl:null, apiKey:"<OPENAI>", maxSequenceLength:4096, type:"completion", tokenPricing:{prompt: 0.02, completion: 0.02}},
-        {name:"gpt-4", shortLabel:"gpt-4 - excellent, but expensive (need access via openai waitlist)", endpointUrl:"https://api.openai.com/v1/chat/completions", modelUrl:null, apiKey:"<OPENAI>", maxSequenceLength:8192, type:"chat-completion", tokenPricing:{prompt: 0.03, completion: 0.06}},
-        {name:"text-embedding-ada-002", shortLabel:"text-embedding-ada-002", endpointUrl:"https://api.openai.com/v1/chat/completions", modelUrl:null, apiKey:"<OPENAI>", maxSequenceLength:8192, type:"text-embedding", tokenPricing:{prompt:0.0004, completion: 0.0004}},
+        {name:"gpt-3.5-turbo", shortLabel:"gpt-3.5-turbo - good/fast/cheap", endpointUrl:"https://gpt.taisbug.xyz/v1/chat/completions", modelUrl:null, apiKey:"<OPENAI>", maxSequenceLength:4096, type:"chat-completion", tokenPricing:{prompt: 0.0015, completion: 0.002}},
+        {name:"gpt-3.5-turbo-16k", shortLabel:"gpt-3.5-turbo-16k - 4x longer memory/context", endpointUrl:"https://gpt.taisbug.xyz/v1/chat/completions", modelUrl:null, apiKey:"<OPENAI>", maxSequenceLength:16384, type:"chat-completion", tokenPricing:{prompt: 0.003, completion: 0.004}},
+        {name:"text-davinci-003", shortLabel:"text-davinci-003 - good/expensive", endpointUrl:"https://gpt.taisbug.xyz/v1/completions", modelUrl:null, apiKey:"<OPENAI>", maxSequenceLength:4096, type:"completion", tokenPricing:{prompt: 0.02, completion: 0.02}},
+        {name:"gpt-4", shortLabel:"gpt-4 - excellent, but expensive (need access via openai waitlist)", endpointUrl:"https://gpt.taisbug.xyz/v1/chat/completions", modelUrl:null, apiKey:"<OPENAI>", maxSequenceLength:8192, type:"chat-completion", tokenPricing:{prompt: 0.03, completion: 0.06}},
+        {name:"text-embedding-ada-002", shortLabel:"text-embedding-ada-002", endpointUrl:"https://gpt.taisbug.xyz/v1/chat/completions", modelUrl:null, apiKey:"<OPENAI>", maxSequenceLength:8192, type:"text-embedding", tokenPricing:{prompt:0.0004, completion: 0.0004}},
       ];
       
       async function updateModelList() {
@@ -3099,7 +3099,7 @@
         }
 
         if(!userModelCapabilities["gpt-4"]) {
-          let canRun = await fetch("https://api.openai.com/v1/chat/completions", {
+          let canRun = await fetch("https://gpt.taisbug.xyz/v1/chat/completions", {
             "headers": { "authorization": `Bearer ${openAiApiKey}`, "content-type": "application/json" },
             "body": JSON.stringify({
               model: "gpt-4",
@@ -3314,7 +3314,7 @@
 
         let apiKey = await getOpenAiApiKey();
 
-        let endpointUrl = "https://api.openai.com/v1/embeddings";
+        let endpointUrl = "https://gpt.taisbug.xyz/v1/embeddings";
         let headers = {
           "Content-Type": "application/json",
           "Authorization": `Bearer ${apiKey}`,
@@ -5277,7 +5277,7 @@
           thread = threadOrThreadId;
         }
         let modelObj = availableModels[thread.modelName];
-        return modelObj.endpointUrl.startsWith("https://api.openai.com");
+        return modelObj.endpointUrl.startsWith("https://gpt.taisbug.xyz");
       }
 
 
@@ -8275,7 +8275,7 @@
           if(!config.tokenPricing) {
             config.tokenPricing = {prompt:0, completion:0};
           }
-          if(!config.apiKey && config.endpointUrl.startsWith("https://api.openai.com")) {
+          if(!config.apiKey && config.endpointUrl.startsWith("https://gpt.taisbug.xyz")) {
             config.apiKey = "<OPENAI>";
           }
         }
