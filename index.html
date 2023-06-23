@@ -3923,7 +3923,7 @@
 
           name = name.replaceAll(" ", "_");
           name = name.replace(/[^A-Za-z0-9_\-]/g, ""); // <-- we need to replace invalid characters here since the name could have been set with custom code, and in that case it wouldn't have been validated as happens when name is set in the character editor UI
-
+          if (name === "") name = "user";
           return { role, content: m.message+"", name, id: m.id }; // id is used for summary upToMessageId stuff, and tracking the messages that were used in each summary and memory (brain button popup)
         });
 
